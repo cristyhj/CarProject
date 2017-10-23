@@ -20,6 +20,15 @@ angleTemp = 0
 angleFuel = 0
 backValuePanelVariable = 0
 
+voltageBatteryValue = 13.8
+checkEngineValue = True
+oilPressureValue = True
+
+
+avariiEnable = True
+countAvarii = 5
+
+
 
 
 
@@ -27,7 +36,7 @@ class AcRPM(pygame.sprite.Sprite):
 
     def __init__(self, *groups):
         super(AcRPM, self).__init__(*groups)
-        self.originalimage = pygame.image.load('resources/ac.png')
+        self.originalimage = pygame.image.load('resources/ac2.png')
         self.originalimage = pygame.transform.scale(self.originalimage, (400, 400))
         self.rect = pygame.rect.Rect((880, 300), self.originalimage.get_size())
         self.angleRPM = 0
@@ -41,6 +50,7 @@ class AcRPM(pygame.sprite.Sprite):
         self.angle = 0
         self.rect = self.image.get_rect()
         self.rect.center = (1080, 500)
+
         self.dir = False
 
 
@@ -51,25 +61,25 @@ class AcRPM(pygame.sprite.Sprite):
         global angleRPM
         self.image = pygame.transform.rotate(self.originalimage, self.angleRPM)
         if self.dir == False:
-            if self.angleRPM < -255:
+            if self.angleRPM < -250:
                 self.dir=True
                 return
-            self.angleRPM -=4
+            self.angleRPM -=6
         if self.dir == True:
-            if self.angleRPM > 0:
+            if self.angleRPM > -5:
                 self.dir = 10
                 return
-            self.angleRPM +=8
+            self.angleRPM +=12
 
         x, y = self.rect.center  # Save its current center.
         self.rect = self.image.get_rect()  # Replace old rect with new rect.
-        self.rect.center = (x, y)
+        self.rect.center = (1080, 500)
+
+
 
         angleRPM = self.angleRPM
-        if angleRPM > -230 and self.dir == False:
-            screen.fill((0, 0, 0), (880, 300, 400, 400))
-        if self.dir == True or angleRPM == 8:
-            screen.fill((0, 0, 0), (880, 300, 400, 400))
+
+        screen.fill((0, 0, 0), (880, 300, 400, 400))
 
 
 
@@ -85,7 +95,7 @@ class AcTEMP(pygame.sprite.Sprite):
         self.rect = pygame.rect.Rect((0, 300), self.image.get_size())
 
         self.rect = self.image.get_rect()
-        self.rect.center = (1080,460)
+        self.rect.center = (1080,500)
         self.dir = False
 
 
@@ -135,7 +145,7 @@ class AcFUEL(pygame.sprite.Sprite):
         self.image = pygame.transform.scale(self.image, (200, 200))
         self.rect = pygame.rect.Rect((0, 300), self.image.get_size())
         self.rect = self.image.get_rect()
-        self.rect.center = (200,460)
+        self.rect.center = (200,500)
         self.dir = False
 
 
@@ -174,12 +184,12 @@ class AcFUEL(pygame.sprite.Sprite):
 class AcKMH(pygame.sprite.Sprite):
     def __init__(self, *groups):
         super(AcKMH, self).__init__(*groups)
-        self.originalimage = pygame.image.load('resources/ac.png')
+        self.originalimage = pygame.image.load('resources/ac2.png')
         self.image = self.originalimage
 
         self.originalimage = pygame.transform.scale(self.originalimage,(400,400))
 
-        self.image = pygame.transform.scale(self.image, (400, 400))
+        self.image = pygame.transform.scale(self.image, (200, 200))
         self.rect = pygame.rect.Rect((0, 300), self.image.get_size())
         self.rect = self.image.get_rect()
         self.rect.center = (200,500)
@@ -191,21 +201,24 @@ class AcKMH(pygame.sprite.Sprite):
         global angleKMH
         self.angleKMH = angleKMH
 
+
         self.image = pygame.transform.rotate(self.originalimage, self.angleKMH)
+
         if self.dir == False:
-            if self.angleKMH < -255:
+            if self.angleKMH < -250:
                 self.dir=True
                 return
             self.angleKMH -=4
         if self.dir == True:
-            if self.angleKMH > 0:
+            if self.angleKMH > -3:
                 self.dir = 10
                 return
             self.angleKMH +=8
 
         x, y = self.rect.center  # Save its current center.
         self.rect = self.image.get_rect()  # Replace old rect with new rect.
-        self.rect.center = (x, y)
+        self.rect.center = (200, 500)################################################3center of images
+
         screen.fill((0, 0, 0), (0, 300, 400, 400))
 
 
@@ -219,7 +232,7 @@ class AcKMH(pygame.sprite.Sprite):
 class CeasKMH(pygame.sprite.Sprite):
     def __init__(self,*groups):
         super(CeasKMH,self).__init__(*groups)
-        self.image = pygame.image.load('resources/kmh.png')
+        self.image = pygame.image.load('resources/kmh3.png')
         self.image = pygame.transform.scale(self.image,(400,400))
         self.rect = pygame.rect.Rect((0,300),self.image.get_size())
 
@@ -237,7 +250,7 @@ class FuelCeas(pygame.sprite.Sprite):
         super(FuelCeas, self).__init__(*groups)
         self.image = pygame.image.load('resources/fuel.png')
         self.image = pygame.transform.scale(self.image, (200, 200))
-        self.rect = pygame.rect.Rect((100, 360), self.image.get_size())
+        self.rect = pygame.rect.Rect((100, 400), self.image.get_size())
         self.angle = 0
 
 
@@ -247,7 +260,7 @@ class TempCeas(pygame.sprite.Sprite):
         super(TempCeas, self).__init__(*groups)
         self.image = pygame.image.load('resources/temp.png')
         self.image = pygame.transform.scale(self.image, (200, 200))
-        self.rect = pygame.rect.Rect((980, 360), self.image.get_size())
+        self.rect = pygame.rect.Rect((980, 400), self.image.get_size()) ##change ceas position
         self.angle = 0
 #######################################################################################
 
@@ -272,6 +285,7 @@ class displayEngineParameters():
         self.textDateAndTime = "xx:xx:xx yy/yy/yy"
         self.textConsumption = "Consumption: " + "l/100km"
         self.textRange = "Range:  km"
+        self.textHorsePower = "Power: "+ str(self.valueTest)+" hp"
 
 
 
@@ -332,8 +346,13 @@ class displayEngineParameters():
             label9 = self.myfont.render(str(self.textEngineTorque), 1, (255,50,0))
             screen.blit(label9, (510, 230))
 
+            label11 = self.myfont.render(str(self.textHorsePower), 1, (255, 50, 0))
+            screen.blit(label11, (510, 310))
+
             label10 = self.myfont.render(str(self.textTurbochargerPressure), 1, (255,50,0))
             screen.blit(label10, (510, 270))
+
+
 
         label11 = self.myfont.render(str(self.textDateAndTime), 1, (255,50,0))
         screen.blit(label11, (560, 350))
@@ -344,21 +363,59 @@ class displayEngineParameters():
 
 #####################################################################################DISPLAY SENSORS IMAGES#############
 
-class displaySensor(pygame.sprite.Sprite):
-    def __init__(self, *groups):
-        super(displaySensor, self).__init__(*groups)
-        self.image = pygame.image.load('resources/sensors/fuelsenzor1.png')
-        self.image = pygame.transform.scale(self.image, (50, 50))
-        self.rect = pygame.rect.Rect((450, 550), self.image.get_size())
-
-
+class displaySensor(object):
 
     def update(self,game):
-        global angleFuel
+        global voltageBatteryValue
+        global checkEngineValue
+        global oilPressureValue
+        global avariiEnable
+        global countAvarii
+                                                            ##############################
+        if voltageBatteryValue >= 14:
+            screen.fill((0, 0, 0), (550, 550, 50, 50))
 
-        if angleFuel > -50:
-            screen.fill((255, 0, 0), (450, 550, 50, 50))
-            print(angleFuel)
+        else:
+            imageBattery = pygame.image.load('resources/sensors/batterysenzor1.png')
+            imageBattery = pygame.transform.scale(imageBattery, (50, 50))
+            rect1 = pygame.rect.Rect((550, 550), imageBattery.get_size())
+            screen.blit(imageBattery,(550,550))
+
+
+
+                                                              ###############################
+        if checkEngineValue ==True:
+            imageCheckEngine = pygame.image.load('resources/sensors/checkengine.png')
+            imageCheckEngine = pygame.transform.scale(imageCheckEngine, (50, 50))
+            rect2 = pygame.rect.Rect((600, 550), imageCheckEngine.get_size())
+            screen.blit(imageCheckEngine, (600, 550))
+        else:
+            screen.fill((0, 0, 0), (600, 550, 50, 50))
+
+
+                                                             ##################################
+        if oilPressureValue ==True:
+            imageOilPressure = pygame.image.load('resources/sensors/oilsenzor.png')
+            imageOilPressure = pygame.transform.scale(imageOilPressure, (50, 50))
+            rect3 = pygame.rect.Rect((650, 550), imageOilPressure.get_size())
+            screen.blit(imageOilPressure, (600, 550))
+        else:
+            screen.fill((0, 0, 0), (650, 550, 50, 50))
+
+
+                                                            ####################################3
+        if avariiEnable == True:
+            imageToLeft = pygame.image.load('resources/toleft.png')
+            imageToLeft = pygame.transform.scale(imageToLeft, (80, 80))
+            rect4 = pygame.rect.Rect((320, 300), imageToLeft.get_size())
+            screen.blit(imageToLeft, (320, 300))
+
+            imageToRight = pygame.image.load('resources/toright.png')
+            imageToRight = pygame.transform.scale(imageToRight, (80, 80))
+            rect5 = pygame.rect.Rect((890, 300), imageToRight.get_size())
+            screen.blit(imageToRight, (890, 300))
+
+
 
 
 
@@ -381,6 +438,7 @@ class Game(object):
         self.acTemp = AcTEMP(sprites)
         self.acFuel = AcFUEL(sprites)
 
+        self.dispSensors = displaySensor()
 
 
         while 1:
@@ -422,6 +480,9 @@ class Game(object):
             self.acRPM.update(self.acRPM)
             self.acTemp.update(self.acTemp)
             self.acFuel.update(self.acFuel)
+
+
+            self.dispSensors.update(self.dispSensors)
 
 
 
