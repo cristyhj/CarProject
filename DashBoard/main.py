@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+# _*_ coding: utf-8 -*_
 import pygame
 import threading, os
 import time
@@ -36,7 +38,7 @@ class AcRPM(pygame.sprite.Sprite):
 
     def __init__(self, *groups):
         super(AcRPM, self).__init__(*groups)
-        self.originalimage = pygame.image.load('resources/ac2.png')
+        self.originalimage = pygame.image.load('resources/ac5.png')
         self.originalimage = pygame.transform.scale(self.originalimage, (400, 400))
         self.rect = pygame.rect.Rect((880, 300), self.originalimage.get_size())
         self.angleRPM = 0
@@ -46,10 +48,10 @@ class AcRPM(pygame.sprite.Sprite):
         self.originalimage = pygame.transform.scale(self.originalimage, (400, 400))
 
         self.image = pygame.transform.scale(self.image, (400, 400))
-        self.rect = pygame.rect.Rect((880, 300), self.image.get_size())
+        self.rect = pygame.rect.Rect((880, 290), self.image.get_size())
         self.angle = 0
         self.rect = self.image.get_rect()
-        self.rect.center = (1080, 500)
+        self.rect.center = (1080, 490)
 
         self.dir = False
 
@@ -73,13 +75,13 @@ class AcRPM(pygame.sprite.Sprite):
 
         x, y = self.rect.center  # Save its current center.
         self.rect = self.image.get_rect()  # Replace old rect with new rect.
-        self.rect.center = (1080, 500)
+        self.rect.center = (1080, 490)
 
 
 
         angleRPM = self.angleRPM
 
-        screen.fill((0, 0, 0), (880, 300, 400, 400))
+        screen.fill((0, 0, 0), (880, 290, 400, 400))
 
 
 
@@ -184,13 +186,13 @@ class AcFUEL(pygame.sprite.Sprite):
 class AcKMH(pygame.sprite.Sprite):
     def __init__(self, *groups):
         super(AcKMH, self).__init__(*groups)
-        self.originalimage = pygame.image.load('resources/ac2.png')
+        self.originalimage = pygame.image.load('resources/ac5.png')
         self.image = self.originalimage
 
         self.originalimage = pygame.transform.scale(self.originalimage,(400,400))
 
         self.image = pygame.transform.scale(self.image, (200, 200))
-        self.rect = pygame.rect.Rect((0, 300), self.image.get_size())
+        self.rect = pygame.rect.Rect((0, 290), self.image.get_size())
         self.rect = self.image.get_rect()
         self.rect.center = (200,500)
         self.dir = False
@@ -208,18 +210,18 @@ class AcKMH(pygame.sprite.Sprite):
             if self.angleKMH < -250:
                 self.dir=True
                 return
-            self.angleKMH -=4
+            self.angleKMH -=6
         if self.dir == True:
             if self.angleKMH > -3:
                 self.dir = 10
                 return
-            self.angleKMH +=8
+            self.angleKMH +=12
 
         x, y = self.rect.center  # Save its current center.
         self.rect = self.image.get_rect()  # Replace old rect with new rect.
-        self.rect.center = (200, 500)################################################3center of images
+        self.rect.center = (200, 490)################################################3center of images
 
-        screen.fill((0, 0, 0), (0, 300, 400, 400))
+        screen.fill((0, 0, 0), (0, 290, 400, 400))
 
 
         angleKMH = self.angleKMH
@@ -232,17 +234,17 @@ class AcKMH(pygame.sprite.Sprite):
 class CeasKMH(pygame.sprite.Sprite):
     def __init__(self,*groups):
         super(CeasKMH,self).__init__(*groups)
-        self.image = pygame.image.load('resources/kmh3.png')
+        self.image = pygame.image.load('resources/kmh5.png')
         self.image = pygame.transform.scale(self.image,(400,400))
-        self.rect = pygame.rect.Rect((0,300),self.image.get_size())
+        self.rect = pygame.rect.Rect((0,290),self.image.get_size())
 
 
 class CeasRPM(pygame.sprite.Sprite):
     def __init__(self, *groups):
         super(CeasRPM, self).__init__(*groups)
-        self.image = pygame.image.load('resources/rpmm.png')
+        self.image = pygame.image.load('resources/rpm5.png')
         self.image = pygame.transform.scale(self.image, (400, 400))
-        self.rect = pygame.rect.Rect((880, 300), self.image.get_size())
+        self.rect = pygame.rect.Rect((880, 290), self.image.get_size())
 
 
 class FuelCeas(pygame.sprite.Sprite):
@@ -412,8 +414,8 @@ class displaySensor(object):
 
             imageToRight = pygame.image.load('resources/toright.png')
             imageToRight = pygame.transform.scale(imageToRight, (80, 80))
-            rect5 = pygame.rect.Rect((890, 300), imageToRight.get_size())
-            screen.blit(imageToRight, (890, 300))
+            rect5 = pygame.rect.Rect((865, 300), imageToRight.get_size())
+            screen.blit(imageToRight, (865, 300))
 
 
 
