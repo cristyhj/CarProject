@@ -1,3 +1,5 @@
+#!/usr/bin/python
+
 import pygame
 import threading, os
 import time

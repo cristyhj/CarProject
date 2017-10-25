@@ -4,6 +4,7 @@ from kivy.uix.image import Image
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.screenmanager import FadeTransition
+import subprocess
 import os
 from transdata import *
 
@@ -14,6 +15,7 @@ screen_menu = Screen(name = "menu")
 screen_player = Screen(name = "music_player")
 sm = ScreenManager(transition=FadeTransition())
 persistent_data = TransData()
+
 
 class BtnWidget(ButtonBehavior, Image):
     def on_press(self):
@@ -29,9 +31,9 @@ class BtnWidget(ButtonBehavior, Image):
         sm.current = 'menu'
         
     def cb_obd(instance):
-        #subprocess.Popen('../main.py', shell=True)
+        subprocess.Popen('../DashBoard/main.py', shell=True)
         #os.system('cd ..')
-        os.system('cd .. && python main.py')
+        #os.system('cd .. && python main.py')
         
     def cb_power_off(instance):
         exit()
