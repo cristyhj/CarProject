@@ -400,7 +400,7 @@ class displaySensor(object):
             imageOilPressure = pygame.image.load('resources/sensors/oilsenzor.png')
             imageOilPressure = pygame.transform.scale(imageOilPressure, (50, 50))
             rect3 = pygame.rect.Rect((650, 550), imageOilPressure.get_size())
-            screen.blit(imageOilPressure, (600, 550))
+            screen.blit(imageOilPressure, (650, 550))
         else:
             screen.fill((0, 0, 0), (650, 550, 50, 50))
 
@@ -455,9 +455,11 @@ class Game(object):
 
                 if e.type == pygame.QUIT:
                     stopThreads = True
+                    exit(1)
                     return
                 if e.type == pygame.KEYDOWN and e.key == pygame.K_ESCAPE:
                     stopThreads = True
+                    exit(1)
                     return
                 #changePanel
                 if e.type == pygame.KEYDOWN and e.key == pygame.K_c:
@@ -502,22 +504,6 @@ class Game(object):
 if __name__ == '__main__':
     pygame.init()
 
-
-
-    #####################start thread for display engineParameters#############
-    #classEngineParameters = displayEngineParameters()
-    #classEngineParameters.start()
-    ###########################################################################
-
-    #####################start thread for display clocks#######################
-    #classEngineClock=displayMainClock()
-    #classEngineClock.start()
-    ###########################################################################
-
-    #####start ace thread###########3
-    #classThreadingthread=startThreadsClass()
-    #classThreadingthread.start()
-    #####################################
 
 
     Game().main(screen)
