@@ -1,19 +1,26 @@
+#!/usr/bin/python3
+
 from kivy.app import App
 from kivy.uix.behaviors import ButtonBehavior 
 from kivy.uix.image import Image  
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.screenmanager import FadeTransition
+import subprocess
 import os
-from transdata import *
+#from transdata import *
 
 #Builder.load_file('start.kv')
+
+path = "/media/andrei/Data/ProgramsData/Python/CarProject/UI/"
+fifofile = "/tmp/fifofile"
+
 
 sm = ScreenManager()
 screen_menu = Screen(name = "menu")
 screen_player = Screen(name = "music_player")
 sm = ScreenManager(transition=FadeTransition())
-persistent_data = TransData()
+#persistent_data = TransData()
 
 class BtnWidget(ButtonBehavior, Image):
     def on_press(self):
@@ -29,9 +36,14 @@ class BtnWidget(ButtonBehavior, Image):
         sm.current = 'menu'
         
     def cb_obd(instance):
-        #subprocess.Popen('../main.py', shell=True)
+        #proc = subprocess.Popen('../DashBoard/main.py', shell=True)
+        #proc.send_signal(2)
         #os.system('cd ..')
-        os.system('cd .. && python main.py')
+        #os.system('cd .. && python main.py')
+        fd = os.open(fifofile, os.O_WRONLY)
+        os.write(fd, b'start main')
+        os.close(fd)
+        
         
     def cb_power_off(instance):
         exit()
