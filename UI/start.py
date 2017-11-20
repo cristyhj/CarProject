@@ -8,7 +8,7 @@ from kivy.uix.gridlayout import GridLayout
 from kivy.uix.screenmanager import FadeTransition
 import subprocess
 import os
-#from transdata import *
+from persistentdata import *
 
 #Builder.load_file('start.kv')
 
@@ -36,16 +36,24 @@ class BtnWidget(ButtonBehavior, Image):
         sm.current = 'menu'
         
     def cb_obd(instance):
-        #proc = subprocess.Popen('../DashBoard/main.py', shell=True)
-        #proc.send_signal(2)
-        #os.system('cd ..')
-        #os.system('cd .. && python main.py')
         fd = os.open(fifofile, os.O_WRONLY)
         os.write(fd, b'start main')
         os.close(fd)
+        exit()
+
+    def cb_navit(instance):
+        fd = os.open(fifofile, os.O_WRONLY)
+        os.write(fd, b'start navi')
+        os.close(fd)
+        exit()
         
+    def cb_options(instance):
+        x = load_variable("volume")
+        print(x)
+        save_variable("volume", x + 0.1)
         
     def cb_power_off(instance):
+        save_on_exit()
         exit()
 
 
@@ -59,6 +67,7 @@ class MyApp(App):
         
         btn_navit = BtnWidget()
         btn_navit.source = 'images/open.png'
+        btn_music_player.bind(on_press=BtnWidget.cb_navit)
         
         btn_obd = BtnWidget()
         btn_obd.source = 'images/egalizator.png'
@@ -66,6 +75,7 @@ class MyApp(App):
         
         btn4 = BtnWidget()
         btn4.source = 'images/settings.png'
+        btn4.bind(on_press=BtnWidget.cb_options)
         
         btn5 = BtnWidget()
         btn5.source = 'images/menu.png'
