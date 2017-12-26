@@ -1,0 +1,29 @@
+<VideoScreen>:
+    video_player: video_player
+    video_sm: video_sm
+    media_chooser: media_chooser
+    GridLayout:
+        cols: 1
+        rows: 2
+        GridLayout:
+            rows: 1
+            cols: 3
+            MyButton:
+                source: './images/reload.png'
+                on_release: root.go_back()
+            MyButton:
+                source: './images/open.png'
+                on_release: root.open_file()
+        ScreenManager:
+            id: video_sm
+            size_hint_y: None
+            height: self.parent.height * 15 / 17
+            Screen:
+                name: 'video'
+                VideoContainer:
+                    id: video_player
+            Screen:
+                name: 'files'
+                VideoFileChooser:
+                    id: media_chooser
+                    rootpath: '/home/sysop/Videos/'

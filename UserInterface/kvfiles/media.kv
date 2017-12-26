@@ -1,0 +1,66 @@
+<MediaScreen>:
+    the_container: the_container
+    MediaContainer:
+        id: the_container
+
+<MediaContainer>:
+    progress_slider: progress_slider
+    media_chooser: media_chooser
+    label_time: label_time
+    label_playing: label_playing
+    playpause_sm: playpause_sm
+    cols: 1
+    rows: 4
+    GridLayout:
+        rows: 1
+        cols: 4
+        MyButton:
+            source: './images/open.png'
+            on_release: root.open_file()
+        Slider:
+            on_value: root.set_slider()
+            size_hint_x: None
+            width: self.parent.width * 9 / 11
+            id: progress_slider
+            cursor_image: './images/rec.png'
+            value_track_width: 5
+            value_track: True
+            value_track_color: 1, 0, 0, 1
+        Label:
+            id: label_time
+            text: '00:00'
+        MyButton:
+            source: './images/reload.png'
+            on_release: root.go_back()
+    MusicFileChooser:
+        size_hint_y: None
+        height: self.parent.height * 5 / 7
+        id: media_chooser
+        rootpath: '/home/sysop/Music/'
+        filters: ['*.mp3']
+    Label:
+        id: label_playing
+    GridLayout:
+        rows: 1
+        cols: 5
+        MyButton:
+            source: './images/mmmback.png'
+        MyButton:
+            source: './images/back.png'
+        ScreenManager:
+            id: playpause_sm
+            Screen:
+                name: 'play_button'
+                MyButton:
+                    source: './images/play.png'
+                    on_release: root.play()
+            Screen:
+                name: 'pause_button'
+                MyButton:
+                    source: './images/pause.png'
+                    on_release: root.pause()
+        MyButton:
+            source: './images/mnext.png'
+            on_release: root.next_song()
+        MyButton:
+            source: './images/mmmnext.png'

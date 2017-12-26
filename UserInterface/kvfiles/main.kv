@@ -1,0 +1,21 @@
+<MainScreen>:
+    Container:
+
+<Container>:
+    rows: 2
+    cols: 3
+    MyButton:
+        source: './images/navigation_icon.png'
+        on_release: root.start_navit()
+    MyButton:
+        source: './images/music.png'
+        on_release: root.start_media()
+    MyButton:
+        source: './images/dashboard_icon.png'
+        on_release: root.start_dashboard()
+    MyButton:
+        source: './images/settings_icon.png'
+        on_release: root.settings()
+    MyButton:
+        source: './images/play.png'
+        on_release: root.start_video()
