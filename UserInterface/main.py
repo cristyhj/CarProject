@@ -1,3 +1,5 @@
+#!/usr/bin/python
+
 from kivy.app import App
 from kivy.lang import Builder
 from kivy.uix.button import Button, ButtonBehavior
@@ -18,10 +20,11 @@ from kivy.uix.filechooser import FileChooserIconView
 import os
 
 from os import listdir
-kv_path = './kvfiles/'
+kv_path = '/home/sysop/CarProject/UserInterface/kvfiles/'
 for kv in listdir(kv_path):
     Builder.load_file(kv_path+kv)
 
+fifo_file = '/tmp/fifofile'
 sm = ScreenManager(transition=FadeTransition())
 
 
@@ -72,13 +75,19 @@ class MyButton(ButtonBehavior, Image):
 
 class Container(GridLayout):
     def start_navit(self):
-        pass
+        fd = os.open(fifo_file, os.O_WRONLY)
+        os.write(fd, b'start navi')
+        os.close(fd)
+        exit(0)
 
     def start_media(self):
         sm.current = 'media'
 
     def start_dashboard(self):
-        pass
+        fd = os.open(fifo_file, os.O_WRONLY)
+        os.write(fd, b'start main')
+        os.close(fd)
+        exit(0)
 
     def start_video(self):
         sm.current = 'video'
@@ -140,7 +149,8 @@ class MediaContainer(GridLayout):
     def next_song(self):
         files = self.media_chooser.files
         crr = files.index(self.sound.source)
-        path = files[crr + 1]
+	print len(files)
+        path = files[(crr + 1) % len(files)]
         self.sound.stop()
         self.sound = SoundLoader.load(path)
         self.progress_slider.min = 0
